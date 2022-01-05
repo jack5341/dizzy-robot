@@ -1,18 +1,15 @@
 {
-    "name": "dizzy-robot",
+    "name": "dizzy-robot-bot",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "dependencies": {
         "axios": "^0.24.0",
-        "body-parser": "^1.19.1",
-        "discord.js": "^12.5.1",
-        "express": "^4.17.2"
+        "discord.js": "^12.5.1"
     },
     "scripts": {
-        "start": "node index.js",
-        "bot-dev": "nodemon ./bot/index.js",
-        "webhook": "node ./webhook.js"
+        "start": "node ./index.js",
+        "dev": "nodemon ./index.js"
     },
     "repository": {
         "type": "git",
@@ -27,7 +24,6 @@
     "type": "module",
     "devDependencies": {
         "dotenv": "^10.0.0",
-        "morgan": "^1.10.0",
         "nodemon": "^2.0.15"
     }
 }

@@ -1,6 +1,6 @@
 import Discord from "discord.js";
-import { env } from "../constants/variables.js";
-import sendCommand from "./utils/request.js";
+import { env } from "./constants/variables.js";
+import Authorize from "./utils/authorize.js";
 
 const client = new Discord.Client();
 
@@ -11,7 +11,7 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
     if (msg.content.includes("!cmd") && msg.author.id != client.user.id) {
         msg.channel.send("Waiting for response...");
-        return await sendCommand(msg, msg.content.split("!cmd")[1].trim());
+        Authorize(msg, msg.author.id);
     }
 });
 
