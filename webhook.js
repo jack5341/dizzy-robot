@@ -1,33 +1,27 @@
 import express from "express";
 import morgan from "morgan";
-import { env } from "./constants/variables.js";
+import bodyParser from "body-parser";
 import child_process from "child_process";
 const app = express();
 
-morgan("dev");
+app.use(morgan("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-function Authorization(req, res, next) {
-    let KEY = req.headers.Authorization || req.headers.authorization;
+app.post("/", (req, res) => {
+    const cmd = req.body.cmd;
 
-    if (KEY.startsWith("Bearer ")) KEY = KEY.substr("Bearer ".length);
-
-    if (KEY !== env.SECRET_KEY) {
-        return res.status(401);
-    }
-
-    next();
-    return;
-}
-
-app.get("/", Authorization, (req, res) => {
     if (!cmd) {
-        return res.statusCode(400);
+        res.statusCode(400);
+        return;
     }
 
-    // return res.send(child_process.spawnSync(cmd).stdout.toString());
-    // return res.send(child_process.spawnSync("docker", ["images"]).stdout.toString());
+    const [command, ...args] = cmd.split(" ");
+
+    res.send(child_process.spawnSync(command, args).stdout.toString());
+    return;
 });
 
-app.listen(3000, () => {
-    console.log("Server is running on port 3000");
+app.listen(4040, () => {
+    console.log("Server is running on port 4040");
 });

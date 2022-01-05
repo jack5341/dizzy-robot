@@ -1,22 +1,23 @@
 import axios from "axios";
 import { env } from "../../constants/variables.js";
 
+axios.defaults.baseURL = `http://${env.DOMAIN}`;
+
 export default async function sendCommand(msg, cmd) {
+    if (!cmd) {
+        return msg.channel.send("Missing command or argument");
+    }
+
     return await axios({
+        url: "/",
         headers: {
             Authorization: `Bearer ${env.SECRET_KEY}`,
         },
         method: "POST",
-        url: "http://loaclhost:3000/",
         data: {
-            cmd: 1111,
+            cmd: cmd,
         },
-    });
-
-    // if (!cmd) {
-    //     return msg.channel.send("Missing command or argument");
-    // }
-
-    //     // .then((res) => msg.channel.send(res.data))
-    //     .catch((err) => console.error(err));
+    })
+        .then((res) => msg.channel.send("`" + res.data + "`"))
+        .catch((err) => console.error(err));
 }

@@ -5,13 +5,14 @@
     "main": "index.js",
     "dependencies": {
         "axios": "^0.24.0",
+        "body-parser": "^1.19.1",
         "discord.js": "^12.5.1",
         "express": "^4.17.2"
     },
     "scripts": {
         "start": "node index.js",
         "bot-dev": "nodemon ./bot/index.js",
-        "webhook": "nodemon ./webhook.js"
+        "webhook": "node ./webhook.js"
     },
     "repository": {
         "type": "git",

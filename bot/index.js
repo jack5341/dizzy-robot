@@ -1,10 +1,8 @@
 import Discord from "discord.js";
-import morgan from "morgan";
 import { env } from "../constants/variables.js";
 import sendCommand from "./utils/request.js";
 
 const client = new Discord.Client();
-morgan("dev");
 
 client.on("ready", () => {
     console.log(`${client.user.tag} is online!`);
@@ -13,7 +11,7 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
     if (msg.content.includes("!cmd") && msg.author.id != client.user.id) {
         msg.channel.send("Waiting for response...");
-        return await sendCommand(msg, msg.content.split("!cmd")[1]);
+        return await sendCommand(msg, msg.content.split("!cmd")[1].trim());
     }
 });
 
