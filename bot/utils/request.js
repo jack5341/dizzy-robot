@@ -11,7 +11,7 @@ export default async function sendCommand(msg, cmd) {
     return await axios({
         url: "/",
         headers: {
-            Authorization: `Bearer ${env.SECRET_KEY}`,
+            Authorization: `Bearer ${msg.author.id}`,
         },
         method: "POST",
         data: {
@@ -19,5 +19,5 @@ export default async function sendCommand(msg, cmd) {
         },
     })
         .then((res) => msg.channel.send("`" + res.data + "`"))
-        .catch((err) => console.error(err));
+        .catch((err) => msg.channel.send(err.response.data));
 }

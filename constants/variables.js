@@ -4,6 +4,6 @@ dotenv.config();
 
 export const env = {
     LOGIN_TOKEN: process.env.LOGIN_TOKEN || "",
-    SECRET_KEY: process.env.SECRET_KEY || "",
     DOMAIN: process.env.DOMAIN || "",
+    ADMIN_ID: process.env.ADMIN_ID || "",
 };
